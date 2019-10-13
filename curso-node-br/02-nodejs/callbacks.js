@@ -27,6 +27,7 @@ function getAddress(idUser, callback) {
 }
 
 
+// execution
 getUser(function(error, user){
 	if (error){
 		console.error("Error: ", error);
@@ -49,12 +50,3 @@ getUser(function(error, user){
 		})
 	})
 });
-
-
-/*
-const user = getUser();
-const phone = getPhone(user.id);
-
-console.log("User:", user);
-console.log("Phone:", phone);
-*/
