@@ -50,6 +50,6 @@ getUser(function(error, user){
         Phone: ${phone.phone}, 
         Address: ${address.street}`
       );
-		})
-	})
+    })
+  })
 });
