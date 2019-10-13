@@ -35,34 +35,32 @@ function getAddress(idUser) {
 
 
 // execution
-const user = getUser()
-  .then((user) => {
-    return getPhone(user.id)
-      .then((phone) => {
-        return {
-          user,
-          phone
-        }
-      })
-  })
-  .then((result) => {
-    return getAddress(result.user.id)
-      .then((address) => {
-        const {user, phone} = result;
-        return {
-          user,
-          phone,
-          address
-        }
-      })
-  })
-  .then((result) => {
+(async function main() {
+  try{
+    console.time('time');
+
+    const user = await getUser();
+    //const phone = await getPhone(user.id);
+    //const address = await getAddress(user.id);
+
+    const result = await Promise.all([
+      getPhone(user.id),
+      getAddress(user.id)
+    ]);
+
+    const phone = result[0];
+    const address = result[1];
+
     console.log(`
-      Name: ${result.user.name}
-      Address: ${result.address.street}, ${result.address.number}
-      Phone: ${result.phone.phone}
-    `);
-  })
-  .catch((error) => {
+      Name: ${user.name}
+      Address: ${address.street}, ${address.number}
+      Phone: ${phone.phone}
+    `);    
+
+    console.timeEnd('time');
+
+  } catch(error) {
     console.error("Error:", error);
-  })
+  }
+}());
+
